@@ -1,0 +1,50 @@
+Probleme de Laplace
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 0.101262
+  Temps CPU total : 1.81897
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 0.000854476
+  Temps CPU total : 2.73615
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 1.53132e-05
+  Temps CPU total : 3.832
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 1.23343e-05
+  Temps CPU total : 4.63381
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 1.23096e-05
+  Temps CPU total : 5.5256
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 1.23094e-05
+  Temps CPU total : 6.24313
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 1.23094e-05
+  Temps CPU total : 7.26108

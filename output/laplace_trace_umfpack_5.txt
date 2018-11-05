@@ -1,0 +1,22 @@
+Probleme de Laplace
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 0.363414
+  Temps CPU total : 8.36878
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 0.980286
+  Temps CPU total : 8.41278
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 0.999675
+  Temps CPU total : 8.53361

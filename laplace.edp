@@ -1,0 +1,96 @@
+//verbosity 0;
+
+// Trace de l'éxécution dans un fichier
+ofstream tfile("output/laplace_trace_umfpack.txt");
+// Fichier de sortie sous forme de tableau pour tracé gnuplot
+ofstream gfile("output/laplace_errors_umfpack.txt");
+
+tfile << "Probleme de Laplace" << endl;
+
+gfile << "# Resolution de -Laplacien(u) = f avec u = 0 au bord" << endl;
+gfile << "# sur le carre [0,1]x[0,1] en elements finis P1 Lagrange" << endl;
+gfile << "# sur une suite de maillages" << endl;
+gfile << "# et pour une solution analytique quadratique en x et y" << endl;
+
+gfile << "# pas h, erreur L^2 relative, erreur relative L^2 sur le gradient, temps CPU" << endl;
+
+// Définition des bord du domaine de calcul
+border Gamma1(t=0,1) {x=t; y=0;};
+border Gamma2(t=0,1) {x=1; y=t;};
+border Gamma3(t=0,1) {x=1-t; y=1;};
+border Gamma4(t=0,1) {x=0; y=1-t;};
+
+// Boucle sur une famille de maillages de plus en plus fins
+for (int epss = 1; epss <= 13; epss+=2)
+{
+  for (int k=5; k<=5; ++k) // Pour k=7, ça devient trop gros
+  {
+    // Construction du maillage
+    int n = 10*2^k; // Nombre de points par côté
+    real t1 = clock(); // Pour mesure du temps cpu
+    mesh Th = buildmesh(Gamma1(n)+Gamma2(n)+Gamma3(n)+Gamma4(n));
+
+    tfile << "k = " << k << endl;
+    tfile << "  Nombre de sommets par cote : " << n << endl;
+    tfile << "  Nombre de sommets dans le maillage : " << Th.nv << endl;
+    tfile << "  Nombre de triangles dans le maillage : " << Th.nt << endl;
+
+    // Affichage et sortie fichierdu maillage seul
+    //plot(Gamma1(n)+Gamma2(n)+Gamma3(n)+Gamma4(n));
+    //plot(Th, wait=1, ps="laplace.eps");
+
+    // Définition de l'espace de discrétisation. Ici on discrétise
+    // V=H^1_0(\Omega) avec des éléments finis P1-Lagrange
+    fespace Vh(Th,P1);
+    tfile << "  Nombre de degres de liberte : " << Vh.ndof << endl;
+
+    cout << "*** k = " << k << " --> n = " << n << " , #DOf = " << Vh.ndof << " ***" << endl;
+
+    // Définition de la formulation variationnelle dans Vh
+
+    // On a besoin de 2 fonctions u et v dans Vh
+    Vh u,v;
+    // D'une fonction definie de manière analytique (pour le second membre)
+    func f = 2*(x*(1-x)+y*(1-y));
+    // func f = 0;
+    // func f = 4*3.1415^2*cos(2*3.1415*x)*y*(1-y) - 2*cos(2*3.1415*x);
+    // Qui s'annule bien au bord du domaine et dont la solution (de
+    // -Laplacien(u)=f) est $u(x,y) = x(1-x)y(1-y).
+    func g = 0; //x+y;
+
+    // Voici finalement notre problème, avec son solveur linéaire
+    problem laplace(u,v,solver=GMRES, eps=10^-epss) = int2d(Th)( dx(u)*dx(v) + dy(u)*dy(v) )
+    - int2d(Th)( f*v ) + on(Gamma1,Gamma2,Gamma3,Gamma4,u=g);
+
+    // UMFPACK
+    // problem laplace(u,v,solver=GMRES, init=0, eps=1e-6) =
+    //   int2d(Th) (dx(u)*dx(v) + dy(u)*dy(v)) - int2d(Th) (f*v)
+    //   + int1d(Th, Gamma2, Gamma4) (0*v)
+    //   + on(Gamma1,Gamma3,u=0);
+
+    // Résolution du système linéaire
+    laplace;
+
+    // Visualisation de la solution
+    //plot(u, fill=true,value=true,boundary=true,wait=true);
+
+    // Solution exacte projetee dans Vh
+    Vh ue;
+    ue = x*(1-x)*y*(1-y); // Expression de la solution exacte
+    // ue = x+y; // Expression de la solution exacte
+    // ue = cos(2*3.1415*x)*y*(1-y); // Expression de la solution exacte
+
+    // Calcul des erreurs
+    real normeL2, errL2, errH1;
+    normeL2 = sqrt( int2d(Th) ( (ue)^2 ) );
+    errL2 = sqrt( int2d(Th) ( (u-ue)^2 ) );
+    errH1 = sqrt( int2d(Th) ( ( dx(ue)+dy(ue) - dx(u)-dy(u) )^2 ) );
+
+    real t2 = clock(); // Pour mesure du temps cpu
+
+    tfile << "  Erreur L2 relative : " << errL2/normeL2 << endl;
+    tfile << "  Temps CPU total : " << t2-t1 << endl;
+
+    gfile << 1./n << "  " << errL2/normeL2 << "  " << errH1 << "  " << t2-t1 << "  " << u[].min << "  " << u[].max << "  " << ue[].min << "  " << ue[].max << endl;
+  }
+}

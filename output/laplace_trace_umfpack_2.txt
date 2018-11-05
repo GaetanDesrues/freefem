@@ -1,0 +1,43 @@
+Probleme de Laplace
+k = 0
+  Nombre de sommets par cote : 10
+  Nombre de sommets dans le maillage : 139
+  Nombre de triangles dans le maillage : 236
+  Nombre de degres de liberte : 139
+  Erreur L2 relative : 2.68969e-16
+  Temps CPU total : 0.056169
+k = 1
+  Nombre de sommets par cote : 20
+  Nombre de sommets dans le maillage : 511
+  Nombre de triangles dans le maillage : 940
+  Nombre de degres de liberte : 511
+  Erreur L2 relative : 5.36668e-16
+  Temps CPU total : 0.014877
+k = 2
+  Nombre de sommets par cote : 40
+  Nombre de sommets dans le maillage : 1979
+  Nombre de triangles dans le maillage : 3796
+  Nombre de degres de liberte : 1979
+  Erreur L2 relative : 9.75443e-16
+  Temps CPU total : 0.061728
+k = 3
+  Nombre de sommets par cote : 80
+  Nombre de sommets dans le maillage : 7639
+  Nombre de triangles dans le maillage : 14956
+  Nombre de degres de liberte : 7639
+  Erreur L2 relative : 5.02639e-15
+  Temps CPU total : 0.256052
+k = 4
+  Nombre de sommets par cote : 160
+  Nombre de sommets dans le maillage : 30559
+  Nombre de triangles dans le maillage : 60476
+  Nombre de degres de liberte : 30559
+  Erreur L2 relative : 5.79449e-15
+  Temps CPU total : 1.09837
+k = 5
+  Nombre de sommets par cote : 320
+  Nombre de sommets dans le maillage : 121854
+  Nombre de triangles dans le maillage : 242426
+  Nombre de degres de liberte : 121854
+  Erreur L2 relative : 4.72784e-15
+  Temps CPU total : 5.24426
